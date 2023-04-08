@@ -6,7 +6,11 @@ class ProductManager {
 
     constructor() {
         this.path = './src/utils/products.json'
+        this.productFile = fs.readFileSync(this.path, "utf-8")
+        this.prodList = JSON.parse(this.productFile)
     }
+
+    
 
     async getProduct(limit) {
         if(!limit){
@@ -43,6 +47,25 @@ class ProductManager {
         }
     }
 
+    async addProductFile(prodRecibido){
+        try{
+        const productFile = fs.readFileSync(this.path, "utf-8")
+        let prodsList = JSON.parse(this.productFile)
+        if(prodsList.length > 0){
+            const ultimoProducto = prodsList[prodsList.length - 1]
+            this.idAuto = ultimoProducto.id + 1
+        }
+        
+        prodsList.push({id: this.idAuto, ...prodRecibido})
+
+        fs.writeFileSync(this.path, JSON.stringify(prodsList, null, 2))
+        return 'PRODUCTO AÑADIDO CORRECTAMENTE'
+        }
+        catch(error){
+            throw new Error(`---->Algo salio mal en addProdcutFile<---- \n ${error}`)
+        }
+    }
+
     async getProductById(id) {
         try {
             // let productoEncontrado = {}
@@ -60,6 +83,8 @@ class ProductManager {
             throw new Error("ERROR EN PRODUCTBYID")
         }
     }
+
+    
 }
 
 export default ProductManager

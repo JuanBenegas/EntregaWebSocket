@@ -1,11 +1,14 @@
 import { Router } from "express"
 import ProductManager from "../utils/productManager.js"
 
+
 const manager = new ProductManager()
 
 const productsRouter = Router()
 
 const jsonProds = './src/router/utils/products.json'
+
+const products = []
 
 productsRouter.get("/api/products/", async (req, res) => {
     const limit = +req.query.limit
@@ -20,21 +23,18 @@ productsRouter.get("/api/products/:prodId", async (req, res) => {
 })
 
 productsRouter.post("/api/products/", async (req, res) =>{
-    // const { title, description, code, price, status, stock, category, thumbnails } = req.body
-    const products = []
     const prodReciv = req.body
     const { title, description, code, price, status, stock, category, thumbnails } = prodReciv
-    if(!prodReciv.title || !prodReciv.description || !prodReciv.code || !prodReciv.price || !prodReciv.status || !prodReciv.stock || !prodReciv.category || !prodReciv.thumbnails){
+    if(!prodReciv.title || !prodReciv.description || !prodReciv.code || !prodReciv.price || !prodReciv.status || !prodReciv.stock || !prodReciv.category){
         console.log("Falta completa un campo")
         res.status(404).json({ error: "Faltan campos por completar o pusiste 'false' en status" })
     }else{
         try{
-
+            await manager.addProductFile(prodReciv)
         }
         catch{
-
+            throw new Error("Algo salio mal en tu posteo")
         }
-        products.push(prodReciv)
         res.status(201).json(prodReciv)
     }
 })
