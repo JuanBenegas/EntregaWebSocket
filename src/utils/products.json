@@ -36,15 +36,6 @@
     "id": 4
   },
   {
-    "title": "producto prueba 5",
-    "description": "Este es un producto prueba",
-    "price": 200,
-    "thumbnail": "Sin imagen",
-    "code": "abc123",
-    "stock": 25,
-    "id": 5
-  },
-  {
     "title": "producto prueba 6",
     "description": "Este es un producto prueba",
     "price": 200,
@@ -88,5 +79,16 @@
     "code": "abc123",
     "stock": 25,
     "id": 10
+  },
+  {
+    "title": "Computadora de Prueba",
+    "description": "Laptop de última generación",
+    "code": 3213123,
+    "price": 23000,
+    "status": true,
+    "stock": 223,
+    "category": "Laptop",
+    "thumbnails": "www.google.com",
+    "id": 5
   }
 ]

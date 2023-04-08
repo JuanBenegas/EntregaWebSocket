@@ -8,8 +8,6 @@ const productsRouter = Router()
 
 const jsonProds = './src/router/utils/products.json'
 
-const products = []
-
 productsRouter.get("/api/products/", async (req, res) => {
     const limit = +req.query.limit
     const prod = await manager.getProduct(limit)
@@ -38,6 +36,22 @@ productsRouter.post("/api/products/", async (req, res) =>{
         res.status(201).json(prodReciv)
     }
 })
+
+productsRouter.put("/api/products/:prodId", async (req, res) => {
+    let prodId = +req.params.prodId
+    let prodReciv = req.body
+    if(!prodReciv.title || !prodReciv.description || !prodReciv.code || !prodReciv.price || !prodReciv.status || !prodReciv.stock || !prodReciv.category){
+        console.log("Falta completa un campo")
+        res.status(400).json({ error: "Faltan campos por completar o pusiste 'false' en status" })
+    }else{
+        try{
+            await manager.changeProduct(prodId, prodReciv)
+        }
+        catch{
+            throw new Error("Algo salio mal en tu posteo")
+        }
+    res.status(200).send({status: "Success", message: "Producto modificado"})
+}})
 
 
 
