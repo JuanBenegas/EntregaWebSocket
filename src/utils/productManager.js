@@ -6,7 +6,9 @@ class ProductManager {
 
     constructor() {
         this.path = './src/utils/products.json'
+        this.cartPath = './src/utils/carts.json'
         this.productFile = fs.readFileSync(this.path, "utf-8")
+        this.cart = fs.readFileSync(this.cartPath, "utf-8")
         this.prodList = JSON.parse(this.productFile)
     }
 
@@ -96,7 +98,72 @@ class ProductManager {
             throw new Error("Error al cambiar el producto")
         }
     }
-    
+
+    async deleteProduct(prodId){
+        let prodsList = JSON.parse(this.productFile)
+        let prodEncontrado = prodsList.find(p => p.id === prodId)
+        if(prodEncontrado){
+            let newProdList = prodsList.filter(p => p.id !== prodEncontrado.id)
+            fs.writeFileSync(this.path, JSON.stringify(newProdList, null, 2))
+        }
+    }
+
+    async createCart(){
+        let cartList = await JSON.parse(this.cart)
+        let cart = {id: (cartList.length + 1), products: []}
+        cartList.push(cart)
+        fs.writeFileSync(this.cartPath, JSON.stringify(cartList, null, 2))
+    }
+
+    async getCart(cartId, cart){
+        let cartList = await JSON.parse(this.cart)
+        let cartEncontrado = cartList.find(p => p.id === cartId)
+        cart = cartEncontrado.products
+        return cart
+    }
+
+    async addProductToCart(cartId, prodId, prodsInCart){
+        let quantity = 0
+        let position = 0
+        let exist = false
+        let cartList = await JSON.parse(this.cart)
+        let prodsList = JSON.parse(this.productFile)
+        let cartEncontrado = cartList.find(p => p.id === cartId)
+        let prodEncontrado = prodsList.find(p => p.id === prodId)
+
+        for(let i = 0; i < cartEncontrado.products.length; i++){
+            
+            if(cartEncontrado.products[i].id === prodId){
+                exist = true
+                position = i
+            }
+        }
+        if(exist){
+            cartEncontrado.products[position].quantity += 1
+            console.log(cartEncontrado.products[position].quantity)
+        }else{
+            cartEncontrado.products.push({id: prodId, quantity: quantity + 1})
+        }
+        fs.writeFileSync(this.cartPath, JSON.stringify(cartList, null, 2))
+        
+
+        // if(cartEncontrado.products.id){
+        //     if(cartEncontrado.products[0].id === prodId){
+        //         cartEncontrado.products.id++
+        //         fs.writeFileSync(this.cartPath, JSON.stringify(cartList, null, 2))
+        //         console.log("Entramos al segundo if")
+        //     }else{
+        //         cartEncontrado.products.push({id: prodEncontrado.id, quantity: (cartEncontrado.products.id + 1)})
+        //         // console.log(cartEncontrado)
+        //         fs.writeFileSync(this.cartPath, JSON.stringify(cartList, null, 2))
+        //     }
+            
+        // }else{
+        //     cartEncontrado.products.push({id: prodEncontrado.id, quantity: (quantity + 1)})
+        // console.log(cartEncontrado)
+        // fs.writeFileSync(this.cartPath, JSON.stringify(cartList, null, 2))
+        // }
+    }
 }
 
 export default ProductManager

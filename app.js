@@ -9,10 +9,6 @@ app.use(express.urlencoded({ extended: true}))
 
 app.use("/", productsRouter)
 
-// app.use("/products", )
-
-// app.use("/cart", )
-
 app.listen(PORT, () => {
     console.log(`Server listening on port ->${PORT}<-`)
 })

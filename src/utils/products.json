@@ -42,7 +42,7 @@
     "thumbnail": "Sin imagen",
     "code": "abc123",
     "stock": 25,
-    "id": 6
+    "id": 5
   },
   {
     "title": "producto prueba 7",
@@ -51,7 +51,7 @@
     "thumbnail": "Sin imagen",
     "code": "abc123",
     "stock": 25,
-    "id": 7
+    "id": 6
   },
   {
     "title": "producto prueba 8",
@@ -60,7 +60,7 @@
     "thumbnail": "Sin imagen",
     "code": "abc123",
     "stock": 25,
-    "id": 8
+    "id": 7
   },
   {
     "title": "producto prueba 9",
@@ -69,7 +69,7 @@
     "thumbnail": "Sin imagen",
     "code": "abc123",
     "stock": 25,
-    "id": 9
+    "id": 8
   },
   {
     "title": "producto prueba 10",
@@ -78,7 +78,7 @@
     "thumbnail": "Sin imagen",
     "code": "abc123",
     "stock": 25,
-    "id": 10
+    "id": 9
   },
   {
     "title": "Computadora de Prueba",
@@ -89,6 +89,6 @@
     "stock": 223,
     "category": "Laptop",
     "thumbnails": "www.google.com",
-    "id": 5
+    "id": 10
   }
 ]
