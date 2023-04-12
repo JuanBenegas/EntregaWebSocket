@@ -1,0 +1,9 @@
+<div>
+    <h1>Hola {{name}}, como andas?</h1>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io()
+    socket.emit('message', "Hola desde el cliente")
+</script>
